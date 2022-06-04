@@ -16,7 +16,7 @@ let container = $(".container");
         var btnEl = document.createElement("button"); // save button 
         btnEl.setAttribute("class", "col-sm-1 saveBtn");
         //format the times to be from 9 am to 5 pm 
-        var timeIndex = hoursFormat(hour);
+        var timeIndex = hoursFormat(hour); // formatting the hours to be displayed correctly onto the page 
         hourEl.textContent = timeIndex; // format the hours to display in the row 
         console.log(timeIndex);
         if (hour < moment().hour()) { // if less than the current time then it would be in the past 
@@ -27,8 +27,8 @@ let container = $(".container");
             descriptionEl.setAttribute("class", "col-sm-10 description future"); // sets future times to green 
         } // displaying the the save image on the save button 
         var iconSave = document.createElement("img") 
-        iconSave.setAttribute("src", "")
-        btnEl.append(iconSave); 
+        iconSave.setAttribute("src", "./images/saveicon.png") // image for save button 
+        btnEl.append(iconSave); // pasting the image onto the save button 
         var tempArr = JSON.parse(localStorage.getItem("events"));
         if (tempArr != null) {
             for (let index = 0; index < tempArr.length; index++) {
@@ -39,10 +39,10 @@ let container = $(".container");
             }
         }
         // append the items into the blocks in the correct order 
-        rowEl.append(hourEl);
-        rowEl.append(descriptionEl);
-        rowEl.append(btnEl);
-        container.append(rowEl);
+        rowEl.append(hourEl); // creating the hour element in the row 
+        rowEl.append(descriptionEl); // making the text box area for the planner 
+        rowEl.append(btnEl); // creating the save button on the row 
+        container.append(rowEl); // getting the row onto the container to be displayed 
     }
     return;
 }
