@@ -1,3 +1,20 @@
+
+//creating a function to display whether the hour be pm or am 
+function hoursFormat(hour) {
+    var timeOfDay= "";
+    if (hour > 11) { // anything past 12 will be considered to be pm 
+        if (hour == 12) {
+            hour = 12; 
+            timeOfDay = "pm";
+        } else { // converts military time 13 - 24 into pm times 1-12
+            hour -= 12;
+            timeOfDay = "pm";
+        } }else{ // anything else with be converted to be am 
+        timeOfDay = "am";
+    } 
+    hour = hour + timeOfDay; 
+    return hour; 
+}
 // this is the start of the main function for the time-blocks 
 function block() {
 let tDate = $("#currentDay");
@@ -47,4 +64,4 @@ let container = $(".container");
     return;
 }
 
-block(); 
+block();
