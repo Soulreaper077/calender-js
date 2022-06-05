@@ -7,7 +7,7 @@ function hoursFormat(hour) {
             hour = 12; 
             timeOfDay = "pm";
         } else { // converts military time 13 - 24 into pm times 1-12
-            hour -= 12;
+            hour -= 12; // subtracts 12 from anything after the 13 hour 
             timeOfDay = "pm";
         } }else{ // anything else with be converted to be am 
         timeOfDay = "am";
@@ -16,10 +16,9 @@ function hoursFormat(hour) {
     return hour; 
 }
 // this is the start of the main function for the time-blocks 
-function block() {
 let tDate = $("#currentDay");
 let container = $(".container");
-
+function block() {
     tDate.text(moment().format("dddd, MMMM Do")); // moment.js format to get weekday, month and date
     var workHours = 8; // max number of hours to format for the work day scheduler 
     var startDay = 9; // the workday will start at 9 am 
@@ -62,6 +61,14 @@ let container = $(".container");
         container.append(rowEl); // getting the row onto the container to be displayed 
     }
     return;
+}
+
+// function to save data to the page 
+function saveBit(bit) {
+    if(bit.target.localName === "img") {
+        bit.target = bit.target.parentElement; 
+        alert("clicked me"); 
+    }
 }
 
 block();
