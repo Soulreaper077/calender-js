@@ -46,7 +46,6 @@ function block() {
         var saveIcon = document.createElement("img") 
         saveIcon.setAttribute("src", "./images/saveicon.png") // image for save button 
         btnEl.append(saveIcon); // pasting the image onto the save button 
-
         // append the items into the blocks in the correct order 
         rowEl.append(hourEl); // creating the hour element in the row 
         rowEl.append(descriptionEl); // making the text box area for the planner 
@@ -55,28 +54,36 @@ function block() {
     }
         return; 
     }
-    var loadTasks = function () {
-        let tasks = JSON.parse(localStorage,getItem("tasks")); 
+    var loadTasks = function () { // function to call on saved tasks and get them to stay 
+        let tasks = JSON.parse(localStorage,getItem("tasks")); // get item function 
         // if nothing is in local storage yet 
-        if (!tasks) {
-            tasks = [{
+        if (!tasks) { // if no tasks then create an empty array 
+            tasks = [{ // variables for the empty array 
                 dayOfYear: moment().dayOfYear(),
                 eventTime: event.target.parentElement.firstChild.textContent,
                 eventDescription: event.target.parentElement.children[1].value,
             }];
+        }else {
+            tasks = JSON.parse(localStorage.getItem("tasks"));
         }
-    var saveTasks = function() {
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+        newArr = {
+            dayOfYear:moment().dayOfYear(),
+            eventTime: event.target.parentElement.firstChild.textContent,
+            eventDescription: event.target.parentElement.children[1].value,
+        }
+    var saveTasks = function() { // function to save input tasks on the screen 
+        localStorage.setItem("tasks", JSON.stringify(tasks)); // set item function 
+        tasks.push(newArr); 
     }; 
-    function execute() {
-    $(".saveBtn").click (function() {
-        saveTasks(); 
+    function execute() { // function for button click to save to the page 
+    $(".saveBtn").click (function() { // calling on the save button to be clicked 
+        saveTasks(); // call on the save tasks function from before 
         alert("clicked me"); 
     })
     }
-    execute(); 
+    execute(); // saving the content 
 }
-block();
+block(); // displaying the rows on time 
 
 
 
