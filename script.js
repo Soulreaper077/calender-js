@@ -18,6 +18,7 @@ function hoursFormat(hour) {
 // this is the start of the main function for the time-blocks 
 let tDate = $("#currentDay");
 let container = $(".container");
+
 function block() {
     tDate.text(moment().format("dddd, MMMM Do")); // moment.js format to get weekday, month and date
     var workHours = 8; // max number of hours to format for the work day scheduler 
@@ -42,33 +43,44 @@ function block() {
         } else { // if neither in the past of the present thn=an it will be future times 
             descriptionEl.setAttribute("class", "col-sm-10 description future"); // sets future times to green 
         } // displaying the the save image on the save button 
-        var iconSave = document.createElement("img") 
-        iconSave.setAttribute("src", "./images/saveicon.png") // image for save button 
-        btnEl.append(iconSave); // pasting the image onto the save button 
-        var tempArr = JSON.parse(localStorage.getItem("events"));
-        if (tempArr != null) {
-            for (let index = 0; index < tempArr.length; index++) {
-                if ((hourEl.textContent == tempArr[index].eventTime) && (moment().dayOfYear() == tempArr[index].dayOfYear)) {
-                    descriptionEl.textContent = tempArr[index].eventDescription;
-                    descriptionEl.setAttribute("id", "saved-item");
-                }
-            }
-        }
+        var saveIcon = document.createElement("img") 
+        saveIcon.setAttribute("src", "./images/saveicon.png") // image for save button 
+        btnEl.append(saveIcon); // pasting the image onto the save button 
+
         // append the items into the blocks in the correct order 
         rowEl.append(hourEl); // creating the hour element in the row 
         rowEl.append(descriptionEl); // making the text box area for the planner 
         rowEl.append(btnEl); // creating the save button on the row 
         container.append(rowEl); // getting the row onto the container to be displayed 
     }
-    return;
-}
-
-// function to save data to the page 
-function saveBit(bit) {
-    if(bit.target.localName === "img") {
-        bit.target = bit.target.parentElement; 
-        alert("clicked me"); 
+        return; 
     }
+    var loadTasks = function () {
+        let tasks = JSON.parse(localStorage,getItem("tasks")); 
+        // if nothing is in local storage yet 
+        if (!tasks) {
+            tasks = [{
+                dayOfYear: moment().dayOfYear(),
+                eventTime: event.target.parentElement.firstChild.textContent,
+                eventDescription: event.target.parentElement.children[1].value,
+            }];
+        }
+    var saveTasks = function() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }; 
+    function execute() {
+    $(".saveBtn").click (function() {
+        saveTasks(); 
+        alert("clicked me"); 
+    })
+    }
+    execute(); 
 }
-
 block();
+
+
+
+
+
+
+
