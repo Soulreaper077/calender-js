@@ -5,7 +5,9 @@ this is the assignment for module 5, in this project, we were instructed to carr
 [calender-js](https://soulreaper077.github.io/calender-js/)
 
 ## other 
-etc
+HTML
+CSS
+JS
 
 ### pics of the deployed website 
 ![deployed site](./images/website.png)
